@@ -13,36 +13,46 @@ export default class App extends Component {
     this.state = {
       events: [],
       pageNum: 0,
-      totalPages: Math.floor(count / 10) + (count % 10 !== 0 ? 1 : 0),
+      totalEvents: 0,
       query: '',
     };
     this.handleSearchQueryChange = this.handleSearchQueryChange.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.handlePageClick = this.handlePageClick.bind(this);
     this.getEvents = getEvents.bind(this);
-  }
-
-  handlePageChange(pageTurns) {
-    console.log(this.getEvents);
-    this.getEvents(this, null, this.state.pageNum + pageTurns);
-  }
-
-  handleSearchQueryChange(event) {
-    console.log('target: ', event.target, 'value: ', event.target.value);
-    this.setState({query: event.target.value})
   }
 
   componentDidMount() {
     this.handlePageChange(1);
   }
 
+  handlePageChange(pageTurns) {
+    this.getEvents(this, this.state.query, this.state.pageNum + pageTurns);
+  }
+
+  handlePageClick(data) {
+    console.log(data.selected);
+    this.getEvents(this, this.state.query, data.selected);
+  }
+
+  handleSearchQueryChange(value) {
+    this.setState({query: value})
+  }
 
   render() {
     return (
       <div>
-        <Search_Bar />
-        <List events={this.state.events} pageNum={this.state.pageNum} />
+        <Search_Bar handleSearchQueryChange={this.handleSearchQueryChange} />
+        <List events={this.state.events}
+              pageNum={this.state.pageNum} />
         <ReactPaginate   previousLabel={"previous"}
                          nextLabel={"next"}
+                         breakLabel={"..."}
+                         breakClassName={"break-me"}
+                         pageCount={Math.ceil(this.state.totalEvents / 10)}
+                         marginPagesDisplayed={2}
+                         pageRangeDisplayed={5}
+                         onPageChange={this.handlePageClick}
                          containerClassName={"pagination"}
                          subContainerClassName={"pages pagination"}
                          activeClassName={"active"} />

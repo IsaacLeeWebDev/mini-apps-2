@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 
 const Search_Bar = props => (
 <input
-    onChange={(event) => props.handleSearchQueryChange(event)}
+    onChange={(event) => props.handleSearchQueryChange(event.target.value)}
     placeholder={'Search...'}/>
 );
 

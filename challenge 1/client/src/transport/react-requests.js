@@ -12,17 +12,27 @@ const getEvents = (context, query, pageNum) => {
   if(pageNum && query) {
     console.log('pageNum && query')
     axios.get(`http://localhost:3000/events?q=${query}&_page=${pageNum}`)
-    .then((results) => context.setState({events: results.data, pageNum: 1}))
+    .then((response) => context.setState({
+        events: response.data,
+        pageNum: pageNum,
+        totalEvents: parseInt(response.headers['x-total-count'])
+      })
+    )
     .catch((err) => console.error('Error retrieving events:', err))
   } else if (pageNum && !query) {
     console.log('pageNum && !query')
     axios.get(`http://localhost:3000/events?_page=${pageNum}`)
-    .then((results) => context.setState({events: results.data, pageNum: 1}))
+    .then((response) => context.setState({
+        events: response.data,
+        pageNum: pageNum,
+        totalEvents: parseInt(response.headers['x-total-count'])
+      })
+    )
     .catch((err) => console.error('Error retrieving events:', err))
   } else if(!pageNum && query) {
     console.log('pageNum && query')
     axios.get(`http://localhost:3000/events?q=${query}`)
-    .then((results) => context.setState({events: results.data, pageNum: 1}))
+    .then((response) => context.setState({events: response.data, pageNum: 1}))
     .catch((err) => console.error('Error retrieving events:', err))
   }
 };

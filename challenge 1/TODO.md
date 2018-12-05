@@ -19,7 +19,6 @@
   - [ ] Refactor JSON server to use server.js file
     - [X] Serve static files
     - [ ] Serve records
-    - [ ] Set count
   - [X] read react-paginate docs and take notes
     - [X] Get first 10 events on page load
     - [ ] learn how to listen for page change events

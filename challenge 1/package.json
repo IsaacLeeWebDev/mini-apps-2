@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "json-server --watch ./database/db.json --static ./client/dist --routes server/routes.json",
+    "start": "json-server --watch ./database/db.json --static ./client/dist",
     "dev": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
