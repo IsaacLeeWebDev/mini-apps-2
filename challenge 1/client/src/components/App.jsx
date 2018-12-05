@@ -5,7 +5,7 @@ import ReactPaginate from 'react-paginate';
 import List from './List.jsx';
 import Search_Bar from './Search_Bar.jsx';
 // Helpers
-import req from '../transport/react-requests.js';
+import getEvents from '../transport/react-requests.js';
 
 export default class App extends Component {
   constructor(props) {
@@ -13,22 +13,28 @@ export default class App extends Component {
     this.state = {
       events: [],
       pageNum: 0,
-      totalPages: 0,
+      totalPages: Math.floor(count / 10) + (count % 10 !== 0 ? 1 : 0),
+      query: '',
     };
+    this.handleSearchQueryChange = this.handleSearchQueryChange.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
-    this.getRecordsByPage = req.getRecordsByPage.bind(this);
-    this.getTotalPages = req.getTotalPages.bind(this);
+    this.getEvents = getEvents.bind(this);
   }
 
   handlePageChange(pageTurns) {
-    console.log(this.getRecordsByPage);
-    this.getRecordsByPage(this, this.state.pageNum + pageTurns);
-    this.getTotalPages(this);
+    console.log(this.getEvents);
+    this.getEvents(this, null, this.state.pageNum + pageTurns);
+  }
+
+  handleSearchQueryChange(event) {
+    console.log('target: ', event.target, 'value: ', event.target.value);
+    this.setState({query: event.target.value})
   }
 
   componentDidMount() {
     this.handlePageChange(1);
   }
+
 
   render() {
     return (
