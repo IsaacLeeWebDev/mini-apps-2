@@ -1,6 +1,11 @@
+// Packages
 import React, { Component } from 'react';
+// Components
 
-export class Search extends Component {
+// Helpers
+import req from '../transport/react-requests.jsx';
+
+export default class Search_Bar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,13 +15,15 @@ export class Search extends Component {
   }
 
   handleSearchQueryChange(event) {
+    console.log('target: ', event.target, 'value: ', event.target.value);
     this.setState({query: event.target.value})
+
   }
 
   render() {
     return (
       <input
-        onChange={(event) => this.handleSearchQueryChange}
+        onChange={(event) => this.handleSearchQueryChange(event)}
         placeholder={'Search...'}/>
     );
   }

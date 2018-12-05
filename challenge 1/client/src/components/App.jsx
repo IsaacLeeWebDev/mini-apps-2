@@ -1,28 +1,46 @@
+// Packages
 import React, { Component } from 'react';
 import ReactPaginate from 'react-paginate';
-import getRecords from '../transport/app.js';
+// Components
+import List from './List.jsx';
+import Search_Bar from './Search_Bar.jsx';
+// Helpers
+import req from '../transport/react-requests.js';
 
-export class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      records: []
-      recordsMaxIndex: 9,
+      events: [],
+      pageNum: 0,
+      totalPages: 0,
     };
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.getRecordsByPage = req.getRecordsByPage.bind(this);
+    this.getTotalPages = req.getTotalPages.bind(this);
   }
 
-  handleProgressPage(records) {
-    getRecords(this.state.maxIndex);
+  handlePageChange(pageTurns) {
+    console.log(this.getRecordsByPage);
+    this.getRecordsByPage(this, this.state.pageNum + pageTurns);
+    this.getTotalPages(this);
+  }
+
+  componentDidMount() {
+    this.handlePageChange(1);
   }
 
   render() {
-    <div>
-      <List records={this.state.records} />
-      <ReactPaginate   previousLabel={"previous"}
-                       nextLabel={"next"}
-                       containerClassName={"pagination"}
-                       subContainerClassName={"pages pagination"}
-                       activeClassName={"active"} />
-    </div>
+    return (
+      <div>
+        <Search_Bar />
+        <List events={this.state.events} pageNum={this.state.pageNum} />
+        <ReactPaginate   previousLabel={"previous"}
+                         nextLabel={"next"}
+                         containerClassName={"pagination"}
+                         subContainerClassName={"pages pagination"}
+                         activeClassName={"active"} />
+      </div>
+    );
   }
 }
