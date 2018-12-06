@@ -5,9 +5,8 @@
 - [X] Configure webpack/.babelrc/package.json
 - [X] Write boilerplate code for react app
   - [X] Run server and get "hello world"
-- [ ] Investigate CoinDesk API
-  - [ ] securely store API key
-  - [ ] put API data on the page as text
+- [X] Investigate CoinDesk API
+  - [X] put API data on the page as text
 - [ ] Investigate ChartJS
   - [ ] Make an empty chart
   - [ ] Populate chart with API data
