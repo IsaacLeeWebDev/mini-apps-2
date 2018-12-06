@@ -7,6 +7,6 @@
   - [X] Run server and get "hello world"
 - [X] Investigate CoinDesk API
   - [X] put API data on the page as text
-- [ ] Investigate ChartJS
-  - [ ] Make an empty chart
+- [X] Investigate ChartJS
+  - [X] Make an empty chart
   - [ ] Populate chart with API data
