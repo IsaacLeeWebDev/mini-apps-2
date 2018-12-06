@@ -7,6 +7,7 @@ const createIndex = (db) => {
   myDb.events = [];
   for (let i = 0; i < db.events.length; i++) {
     db.events[i].id = i
+    db.events[i].favoriteLists = [];
     myDb.events.push(db.events[i]);
     // myDb = db.events[i];
     // myDb.events[i].id = i;

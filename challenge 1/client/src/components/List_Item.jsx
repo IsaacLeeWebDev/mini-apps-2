@@ -41,8 +41,13 @@ export default class List_Item extends Component {
       category1   : this.state.category1Input,
       category2   : this.state.category2Input,
       granularity : this.state.granularityInput,
+      favorites   : this.state.favorites,
     });
     this.toggleMode();
+  }
+
+  addToFavorites(selectedList) {
+    this.setState({favorites: this.state.favorites.concat(selectedList)})
   }
 
   render() {
