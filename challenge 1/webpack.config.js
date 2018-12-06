@@ -1,7 +1,5 @@
 const path = require('path');
 
-// TODO: Fix Me!!!
-
 module.exports = {
   mode: 'development',
   context: path.resolve('client/src'),
