@@ -6,7 +6,10 @@ import List_Item from './List_Item.jsx';
 const List = props => {
   let i = -1;
   return props.events.map(event => {
-    return (<List_Item key={props.pageNum + i++} event={event} />)
+    i++;
+    return (<List_Item  key={(props.pageNum - 1) * 10 + i}
+                        event={event}
+                        id={(props.pageNum - 1) * 10 + i} />)
   });
 }
 

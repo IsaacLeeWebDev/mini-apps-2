@@ -10,20 +10,34 @@
 - [ ] Story: Build a React UI that allows the user to search for historical events based on a keyword.
   - [X] create hello world
     - [X] Bug: Fix webpack
-  - [X] Build boilerplate code
+  - [X] Build Components
     - [X] index.jsx
     - [X] App component
     - [X] Search Bar component
     - [X] List component
     - [X] List Item component
-  - [ ] Refactor JSON server to use server.js file
-    - [X] Serve static files
-    - [ ] Serve records
   - [X] read react-paginate docs and take notes
     - [X] Get first 10 events on page load
-    - [ ] learn how to listen for page change events
-    - [ ] handle page change events with and without a query
-
+    - [X] learn how to listen for page change events
+    - [X] handle page change events with and without a query
+  - [X] Build Component-Server Functionality for all GET requests
+    - [X] Serve static files
+    - [X] Serve records on page load
+    - [X] Serve records on next/prev page
+    - [X] Serve records by page number
+    - [X] Serve records by keyword on submit
+    - [X] Serve records by keyword AND page on pageChange
+  - [ ] Build Component-Server Functionality for all PUT requests
+    - [ ] Build UI that makes sense
+      - [ ] List_Item.jsx
+        - [ ] Edit button should replace this record with a form component
+          - [ ] New file: Edit_List_Item.jsx
+            - [ ] on submit, should do a post request
+            - [ ] on success, should go back to a List_Item component
+              - [ ] should have updated info
+        - [ ] on success, should go back to normal List_Item
+  - [ ] Build Component-Server Functionality for Favorites Lists
+    - [ ] Break up this ticket
 
 ## Stretch Goals:
   - [ ] implement a timeline UI

@@ -5,9 +5,9 @@ import React, { Component } from 'react';
 // Helpers
 
 const Search_Bar = props => (
-<input
-    onChange={(event) => props.handleSearchQueryChange(event.target.value)}
-    placeholder={'Search...'}/>
+<input  onChange={(event) => props.handleSearchQueryChange(event.target.value)}
+        placeholder={'Search...'}
+        onKeyDown={(event) => props.handleQuerySubmit(event.keyCode)} />
 );
 
 export default Search_Bar;
