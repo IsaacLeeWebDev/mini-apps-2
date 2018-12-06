@@ -9,4 +9,6 @@
   - [X] put API data on the page as text
 - [X] Investigate ChartJS
   - [X] Make an empty chart
+  - [ ] Populate chart with fake data
   - [ ] Populate chart with API data
+  - [ ] implement dist/Chart.bundle.js

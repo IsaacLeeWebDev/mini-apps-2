@@ -27,21 +27,34 @@ export default class App extends Component {
     let data = []
     let dates = Object.keys(this.state.apiData);
     for (let i = 0; i < dates.length; i++) {
-      data.push({x: new Date(dates[i]), y: this.state.apiData[dates[i]] })
+      data.push({x: dates[i], y: this.state.apiData[dates[i]] })
     }
     console.log('Data about to be rendered: ', data);
     if (this.state.apiData) {
       console.log('rendering chart with data @:', ctx);
       return new Chart(ctx, {
         type: 'line',
-        data: data,
+        data: {
+          datasets: [{
+            label: 'Bitcoin prices over time (USD)',
+            data: data,
+            backgroundColor: 'rgba(1,0,0,0.2)',
+            borderColor: 'rgba(0,0,0,1)',
+            borderWIdth: 1,
+            fill: true,
+          }],
+        },
         options: {
           scales: {
               xAxes: [{
                   type: 'time',
                   time: {
-                      unit: 'day'
-                  }
+                      unit: 'month'
+                  },
+                  display: true,
+                  scaleLabel: {
+
+                  },
               }],
               yAxes: [{
                   type: 'linear',
