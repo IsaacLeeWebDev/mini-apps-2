@@ -11,3 +11,5 @@
   - [X] Make an empty chart
   - [X] Populate chart with API data
   - [ ] implement dist/Chart.bundle.js
+  - [ ] hardcode date range of select tags
+  - [ ] limit inital request to one quarter of data
