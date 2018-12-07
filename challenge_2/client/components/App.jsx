@@ -115,14 +115,14 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <div>
-          Powered By <a href="https://www.coindesk.com/price/">CoinDesk</a>
-        </div>
         <canvas id="myChart" width="" height="95%"></canvas>
         <div> start date </div>
         <Datepicker update={this.updateStartDate} selected={this.state.startDate} dates={Object.keys(this.state.initApiData)}/>
         <div> end date </div>
         <Datepicker update={this.updateEndDate} selected={this.state.endDate} dates={Object.keys(this.state.initApiData)}/>
+        <div>
+          Powered By <a href="https://www.coindesk.com/price/">CoinDesk</a>
+        </div>
       </div>
     );
   }
