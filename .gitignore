@@ -4,3 +4,23 @@ challenge_2/node_modules/
 challenge_2/client/dist/bundle.js
 challenge_3/bundle.js
 challenge_3/node_modules/
+challenge_4/node_modules
+challenge_4/.pnp
+challenge_4/.pnp.js
+
+# testing
+challenge_4/coverage
+
+# production
+challenge_4/build
+
+challenge_4/# misc
+challenge_4/.DS_Store
+challenge_4/.env.local
+challenge_4/.env.development.local
+challenge_4/.env.test.local
+challenge_4/.env.production.local
+
+challenge_4/npm-debug.log*
+challenge_4/yarn-debug.log*
+challenge_4/yarn-error.log*
