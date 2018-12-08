@@ -7,36 +7,98 @@ export default class App extends Component {
     super(props);
     this.state = {
       score: 0,
-      pins: ['pin', 'pin', 'pin', 'pin', 'pin', 'pin', 'pin', 'pin', 'pin', 'pin'],
+      pins: [true, true, true, true, true, true, true, true, true, true],
       pinsLeft: 10,
-      round: 0,
-      frame: 0,
-      bonusFrames: 0,
+      totalScore: 0,
+      throws: [],
+      spare: false,
+      strike: false,
+      double: false,
     };
-    this.bowl = this.bowl.bind(this)
+    this.bowl = this.bowl.bind(this);
+    this.calculateTotalScore = this.calculateTotalScore.bind(this);
+  }
+
+  calculateTotalScore(newThrowsArray) {
+    if (newThrowsArray.length > 0) {
+      let newTotalScore = 0;
+      for (let i = 0; i < newThrowsArray.length; i++) {
+          newTotalScore += newThrowsArray[i];
+      }
+      return newTotalScore;
+    } else {
+      return 0
+    }
   }
 
   bowl(numPins) {
-    let i = 0;
+    let newScore = 0;
     let newPins = this.state.pins.slice();
-    let newScore = this.state.score;
-    while(i < numPins && newPins.filter(pin => pin ? true : false).length > 0) {
-      let randomIndex = Math.floor(Math.random() * 10)
+    let newThrows = this.state.throws;
+    let throwNumber = this.state.throws.length % 2 + 1;
+    // knock over numPins random pins
+    while(newScore < numPins && !allPinsDown) {
+      let randomIndex = Math.floor(Math.random() * 10);
       if (newPins[randomIndex]) {
         newPins[randomIndex] = false;
         newScore++;
-        i++;
       }
     }
-    this.setState({pins: newPins});
-    this.setState({score: newScore});
-    if (this.state.frame === 0) {
-      this.setState({frame: 1});
-    } else if (this.state.frame < 10) {
-      this.setState({pins: ['pin', 'pin', 'pin', 'pin', 'pin', 'pin', 'pin', 'pin', 'pin', 'pin']})
-      this.setState({round: this.state.round + 1, frame: 0})
+    let allPinsDown = newPins.filter(pin => pin ? true : false).length === 0;
+    // set the pins array to the mutated array with the random pins knocked over
+    this.setState({ pins: newPins });
+
+    // if the game hasn't ended already
+    if (newThrows.length < 20 || (newThrows.length < 22 && (this.state.double || this.state.strike || this.state.spare))) {
+      newThrows.push(newScore); // push score to throws
+
+      // add any bonus points scored by this throw to previous throws
+      if (this.state.spare) {
+        newThrows[newThrows.length - 2] += newScore;
+        this.setState({spare: false})
+      }
+
+      if (this.state.strike) {
+        newThrows[newThrows.length - 4] += newScore;
+        if (throwNumber === 2) {
+          this.setState({strike: false})
+        }
+        if(this.state.double) {
+          if (throwNumber === 2) {
+            newThrows[newThrows.length - 6] += newScore
+          }
+        }
+      }
+      if (allPinsDown) {
+        if (throwNumber === 1) {
+          if (this.state.strike) {
+            this.setState({ double: true });
+          }
+          this.setState({ strike: true });
+        } else {
+          this.setState({ spare: true });
+        }
+      }
+
+      // if there were still pins at the end of the throw
+
+      if (newScore === 10 && this.state.throws.length < 19) {
+        newThrows.push(0);
+      }
+      // update the score tracker
+      let newTotalScore = this.calculateTotalScore(newThrows);
+      this.setState({
+        totalScore: newTotalScore,
+        throws: newThrows
+      });
+
+      // reset the pins after second throws or strikes
+      if (throwNumber === 2 || allPinsDown) {
+        this.setState({ pins:[true, true, true, true, true, true, true, true, true, true] });
+      }
+    // alert the user when the game has ended
     } else {
-      alert('game over!')
+      alert('game over!');
     }
   }
 
@@ -58,13 +120,35 @@ export default class App extends Component {
         </div>
         <NumPicker bowl={this.bowl} pinsLeft={this.state.pinsLeft} />
         <div>
-          Score: {this.state.score}
+          Score: {this.state.totalScore}
         </div>
         <div>
-          frame: {this.state.frame}
+          throw:
+          {
+            this.state.throws.length % 2 + 1
+          }
         </div>
         <div>
-          round: {this.state.round}
+          frame: {
+            this.state.throws.length
+              ? Math.floor(this.state.throws.length / 2) + 1
+              : 1
+          }
+        </div>
+        <div>
+          throws: {JSON.stringify(this.state.throws)}
+        </div>
+        <div>
+          total throws: {JSON.stringify(this.state.throws.length)}
+        </div>
+        <div>
+          spare active: {String(this.state.spare)}
+        </div>
+        <div>
+          strike active: {String(this.state.strike)}
+        </div>
+        <div>
+          double active: {String(this.state.double)}
         </div>
       </div>
     );
