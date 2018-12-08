@@ -3,14 +3,13 @@ import getApiData from '../transport/reactGetRequests.js';
 import chart from 'chart.js';
 import Datepicker from './Datepicker.jsx';
 import sf, { sprintf } from 'sprintf-js';
-import btcCache from '../../btcCache.js';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       apiData: {},
-      initApiData: btcCache,
+      initApiData: {},
       startDate: this.props.beginningOfTimeStr,
       endDate: this.props.todayStr,
     };
@@ -74,26 +73,26 @@ export default class App extends Component {
         },
         options: {
           scales: {
-              xAxes: [{
-                  type: 'time',
-                  distribution: 'series',
-                  time: {
-                      unit: 'month',
-                  },
-                  display: true,
-                  ticks: {
-                    source: 'labels',
-                  },
-              }],
-              yAxes: [{
-                  type: 'linear',
-                  scaleLabel: {
-                    display: true,
-                    labelStirng: 'Closing Price (USD)',
-                  }
-              }]
-          }
-      }
+            xAxes: [{
+                type: 'time',
+                distribution: 'series',
+                time: {
+                    unit: 'month',
+                },
+                display: true,
+                ticks: {
+                  source: 'labels',
+                },
+            }],
+            yAxes: [{
+              type: 'linear',
+              scaleLabel: {
+                display: true,
+                labelStirng: 'Closing Price (USD)',
+              },
+            }],
+          },
+        },
       });
     } else {
       console.log('no api data');
@@ -115,7 +114,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <canvas id="myChart" width="" height="95%"></canvas>
+        <canvas id="myChart" width="" height=""></canvas>
         <div> start date </div>
         <Datepicker update={this.updateStartDate} selected={this.state.startDate} dates={Object.keys(this.state.initApiData)}/>
         <div> end date </div>
