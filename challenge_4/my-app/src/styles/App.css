@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
 .App-logo {
@@ -11,9 +11,8 @@
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: left;
+  justify-content: left;
   font-size: calc(10px + 2vmin);
   color: white;
 }
@@ -29,4 +28,19 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.MinesweeperRow {
+  display: flex;
+  justify-content: space-between;
+  width: 15%;
+}
+
+.MinesweeperBox:hover {
+  cursor: pointer;
+  color: blue;
+}
+
+.bomb {
+  background-color: red;
 }

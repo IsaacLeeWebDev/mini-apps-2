@@ -1,7 +1,10 @@
+// eslint-disable-next-line
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import '../styles/App.css';
+import MinesweeperRow from './MinesweeperRow.jsx';
+
 
 class App extends Component {
   constructor(props) {
@@ -9,30 +12,30 @@ class App extends Component {
     this.state = {
 
     };
-  }
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Welcome to <code> Minesweeper </code>
-          </p>
-        </header>
-        <p>Hello world</p>
-      </div>
-    );
+  };
+
+  render () {
+    let boardJsx = [];
+    console.log('App props:', this.props);
+      for (let i = 0; i < this.props.board.spaces.length; i++) {
+        boardJsx.push(
+          <MinesweeperRow key={i}
+                          board={this.props.board}
+                          spaces={this.props.board.spaces[i]}
+                          rowId={i} />);
+    }
+      return (
+        <div className="App">
+          { boardJsx }
+        </div>
+      );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    examplePropOne: state.examplePropOne,
-    examplePropOne: state.examplePropTwo,
+    board: state.state,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ exampleAction }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
